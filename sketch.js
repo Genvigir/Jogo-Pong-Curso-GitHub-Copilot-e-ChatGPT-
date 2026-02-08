@@ -1,10 +1,22 @@
-// codigo base do p5js
+// posicao da bola
+var x = 200;
+var y = 200;
+
+// velociadades da bola
+var vx = 5;
+var vy = 5;
+
+//funcao setup do p5js
 function setup() {
     createCanvas(400, 400);
+    background(0);
 }
 
+//funcao de desenho do p5js
 function draw() {
-    background(220);
-    fill(255, 0, 0);
-    ellipse(200, 200, 50, 50);
+    //desenha um circulo
+    fill(255);
+    ellipse(x, y, 50, 50);
+    x += vx;
+    y += vy;
 }
