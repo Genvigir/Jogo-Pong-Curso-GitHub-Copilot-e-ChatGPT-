@@ -9,12 +9,11 @@ var vy = 5;
 //funcao setup do p5js
 function setup() {
     createCanvas(400, 400);
-    background(0);
 }
 
 //funcao de desenho do p5js
 function draw() {
-    //desenha um circulo
+    background(0);
     fill(255);
     ellipse(x, y, 50, 50);
     x += vx;
