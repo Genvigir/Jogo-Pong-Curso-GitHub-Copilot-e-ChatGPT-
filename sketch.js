@@ -2,6 +2,10 @@ let bolaImagem;
 let raqueteImagem;
 let raqueteOponenteImagem;
 let fundoImagem;    
+let quicarSom;
+let somGol;
+let pontosJogador = 0;
+let pontosOponente = 0;
 
 class Raquete {
     constructor(x) {
@@ -59,7 +63,14 @@ class Bola {
         this.x += this.vx;
         this.y += this.vy;
         if (this.x < this.r || this.x > width - this.r) {
+            if (this.x < this.r) {
+                pontosOponente++;
+            } else {
+                pontosJogador++;
+            }
             this.reset();
+            somGol.play();
+            falaPontos();
         }
         if (this.y < this.r || this.y > height - this.r) {
             this.vy *= -1;
@@ -73,6 +84,8 @@ class Bola {
             this.vx *= 1.1; // aumentar velocidade
             this.vy *= 1.1; // aumentar velocidade
             this.x = raqueteOponente.x - this.r; // evitar ficar preso na raquete
+            quicarSom.play();
+
         }
 
         // se colidir com a raquete
@@ -83,6 +96,8 @@ class Bola {
             this.vx *= 1.1; // aumentar velocidade
             this.vy *= 1.1; // aumentar velocidade
             this.x = raquete.x + raquete.w + this.r; // evitar ficar preso na raquete
+            quicarSom.play();
+
         }
     }
 
@@ -104,6 +119,16 @@ function preload() {
     raqueteImagem = loadImage('barra01.png');
     raqueteOponenteImagem = loadImage('barra02.png');
     fundoImagem = loadImage('fundo2.png');
+    quicarSom = loadSound('446100__justinvoke__bounce.wav');
+    somGol = loadSound('274178__littlerobotsoundfactory__jingle_win_synth_02.wav');
+}
+
+function falaPontos() {
+    //use speechapi para falar os pontos
+    pontuacao = "Pontuação é " + pontosJogador + " a " + pontosOponente;
+    const msg = new SpeechSynthesisUtterance(pontuacao);
+    msg.lang = 'pt-BR';
+    window.speechSynthesis.speak(msg);
 }
 
 function setup() {
